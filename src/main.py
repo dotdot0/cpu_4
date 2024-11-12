@@ -1,36 +1,39 @@
 import sys
 from pathlib import Path
 
-file_name: str = sys.argv[1]
-file: Path = Path(file_name)
+# Input and output file paths
+input_file_name: str = sys.argv[1]
+output_file_name: str = "program.bin"
 
-if file.exists():
-    with open(file, "r") as f:
+input_file: Path = Path(input_file_name)
+
+if input_file.exists():
+    with open(input_file, "r") as f, open(output_file_name, "w") as out_file:
         lines: list[str] = f.readlines()
         for line in lines:
             instr: list[str] = line.strip().split(" ")
             match instr[0]:
                 case "NOP":
-                    print("0000 0000")
+                    out_file.write("0000 0000\n")
                 case "LOAD":
                     number: int = int(instr[1])
-                    print(f"0001 {number:04b}")
+                    out_file.write(f"0001 {number:04b}\n")
                 case "ADD":
-                    print("0010 0000")
+                    out_file.write("0010 0000\n")
                 case "AND":
-                    print("0100 0000")
+                    out_file.write("0100 0000\n")
                 case "SUB":
-                    print("0011 0000")
+                    out_file.write("0011 0000\n")
                 case "OR":
-                    print("0101 0000")
+                    out_file.write("0101 0000\n")
                 case "XNOR":
-                    print("0111 0000")
+                    out_file.write("0111 0000\n")
                 case "STORE":
                     const: int = int(instr[1])
-                    print(f"0110 {const:04b}")
+                    out_file.write(f"0110 {const:04b}\n")
                 case "JMP":
                     point: int = int(instr[1])
-                    print(f"1000 {point:04b}")
+                    out_file.write(f"1000 {point:04b}\n")
                 case _:
                     print("[ERROR] Invalid Instruction")
 else:

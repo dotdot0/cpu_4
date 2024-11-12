@@ -38,7 +38,7 @@ module tb_cpu;
         // Data memory: Storing immediate data values
         uut.data_memory[0] = 4'b0100;  // LOAD VALUE TO R0 (RO = 0100 (4 IN DECIMAL) )
         uut.Data_PC = 0;
-        uut.data_memory[1] = 4'b0010;  // LOAD VALUE TO R1 
+        uut.data_memory[1] = 4'b0010;  // LOAD VALUE TO
         uut.Data_PC = 1;
         // Instruction memory: Loading a series of instructions
         // Format: [Opcode, Operand]
