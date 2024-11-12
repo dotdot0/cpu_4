@@ -36,28 +36,29 @@ module tb_cpu;
 
         // Memory Initialization
         // Data memory: Storing immediate data values
-        uut.data_memory[0] = 4'b0100;  // Example data
-        uut.data_memory[1] = 4'b0010;  // Example data
-
+        uut.data_memory[0] = 4'b0100;  // LOAD VALUE TO R0 (RO = 0100 (4 IN DECIMAL) )
+        uut.Data_PC = 0;
+        uut.data_memory[1] = 4'b0010;  // LOAD VALUE TO R1 
+        uut.Data_PC = 1;
         // Instruction memory: Loading a series of instructions
         // Format: [Opcode, Operand]
-        uut.memory[0] = 4'b0001;  // LOADucti instron (Opcode for LOAD)
-        uut.memory[1] = 4'b0011;  // Operand value: 3
+        uut.memory[0] = 4'b0001;  // LOAD VALUE TO DATA MEMORY (Opcode for LOAD)
+        uut.memory[1] = 4'b0011;  
 
         uut.memory[2] = 4'b0010;  // ADD instruction (Opcode for ADD)
-        uut.memory[3] = 4'b0000;  // Operand value: 0
+        uut.memory[3] = 4'b0000;  
 
-        uut.memory[4] = 4'b0101;  // ADD instruction
-        uut.memory[5] = 4'b0000;  // Operand value: 0
+        uut.memory[4] = 4'b0101;  // OR instruction
+        uut.memory[5] = 4'b0000;  
 
-        uut.memory[6] = 4'b0011;  // ADD instruction
-        uut.memory[7] = 4'b0000;  // Operand value: 0
+        uut.memory[6] = 4'b0011;  // SUB instruction
+        uut.memory[7] = 4'b0000;  
 
-        uut.memory[8] = 4'b0100;  // ADD instruction
-        uut.memory[9] = 4'b0000;  // Operand value: 0
+        uut.memory[8] = 4'b0100;  // AND instruction
+        uut.memory[9] = 4'b0000;  
 
-        uut.memory[10] = 4'b0111; // ADD instruction
-        uut.memory[11] = 4'b0000; // Operand value: 0
+        uut.memory[10] = 4'b0111; // XNOR instruction
+        uut.memory[11] = 4'b0000; 
 
         // Run the simulation for a sufficient time to observe instruction execution
         #400;
