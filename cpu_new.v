@@ -13,9 +13,10 @@ module cpu (
     reg [3:0] alu_out;      // Output of ALU
     reg [3:0] opcode, operand;
     reg [1:0] state;        // State variable for FSM
-
+    reg [1:0] Data_PC;
+    
     // States for instruction cycle
-    parameter FETCH = 2'b00, DECODE = 2'b01, EXECUTE = 2'b10;
+    parameter FETCH = 2'b00, DECODE = 2'b01, EXECUTE = 2'b10, LOAD = 2'b11;
 
     // ALU Logic
     always @(*) begin
@@ -33,6 +34,7 @@ module cpu (
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             PC <= 4'b0000;
+            Data_PC <= 2'b00;
             ACC <= 4'b0000;
             IR <= 8'b00000000;
             state <= FETCH;
@@ -54,6 +56,10 @@ module cpu (
                         4'b0000: state <= FETCH;  // NOP: go back to fetch
                         4'b0001: begin            // LOAD constant to ACC
                             ACC <= operand;
+                            data_memory[Data_PC] <= operand;
+                            Data_PC <= Data_PC + 1;      // Increment Data_PC for next load
+                            if (Data_PC == 2'b10)        // Reset Data_PC if both R0 and R1 are loaded
+                                Data_PC <= 2'b00;
                             state <= FETCH;
                         end
                         4'b0010, 4'b0011, 4'b0100, 4'b0101, 4'b0111: begin  // ALU operations
@@ -63,7 +69,13 @@ module cpu (
                             begin 
                                 ACC <= alu_out;
                             end
-                            state <= FETCH;
+                            @(posedge clk) begin
+                                data_memory[Data_PC] <= ACC;
+                                Data_PC <= Data_PC + 1;      // Increment Data_PC for next load
+                                if (Data_PC == 2'b10)        // Reset Data_PC if both R0 and R1 are loaded
+                                    Data_PC <= 2'b00;
+                                state <= FETCH;
+                            end
 
                         end
                         4'b0110: begin            // STORE ACC to memory
