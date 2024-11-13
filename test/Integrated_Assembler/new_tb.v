@@ -40,13 +40,14 @@ module tb_cpu;
        $readmemb("program.bin", uut.memory); 
 
         //#270; 
-        #300;
+        #305;
         wakeup = 1;
 
-        #10
+        #20
 
+        wakeup = 0;
        
-        #50
+        #300
         $display("Entering sleep state...");   
         $finish;
     end
