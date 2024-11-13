@@ -80,18 +80,6 @@ module cpu (
                         end
 
 
-                        4'b0110: begin            // STORE ACC to memory
-                            data_memory[operand] <= ACC;
-                            state <= FETCH;
-                        end
-
-
-                        4'b0111: begin            // JMP to address
-                            PC <= operand;
-                            state <= FETCH;
-                        end
-
-
                         default: state <= FETCH;  
 
 

@@ -41,7 +41,7 @@ module tb_cpu;
 
         //#270; 
         #305;
-        wakeup = 1;
+        wakeup = 0;
 
         #20
 
