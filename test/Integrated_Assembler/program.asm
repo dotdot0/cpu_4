@@ -5,3 +5,6 @@ OR
 SUB 
 AND 
 XNOR 
+SLEEP
+ADD
+OR

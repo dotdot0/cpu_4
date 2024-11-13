@@ -28,12 +28,8 @@ if input_file.exists():
                     out_file.write("0101 0000\n")
                 case "XNOR":
                     out_file.write("0111 0000\n")
-                case "STORE":
-                    const: int = int(instr[1], 2)  # Parse as binary directly
-                    out_file.write(f"0110 {const:04b}\n")
-                case "JMP":
-                    point: int = int(instr[1], 2)  # Parse as binary directly
-                    out_file.write(f"1000 {point:04b}\n")
+                case "SLEEP":
+                    out_file.write(f"1000 0000\n")
                 case _:
                     print("[ERROR] Invalid Instruction")
 else:
